@@ -8,7 +8,8 @@ const router = require('./routes');
 const { createUser, login } = require('./controllers/users');
 const { registerValidation, loginValidation } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
+const cors = require('cors')
 const auth = require('./middlewares/auth');
 
 const NotFound = require('./errors/notFoundError');
@@ -24,7 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.use(cors);
+app.use(cors());
+// app.use(cors);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
