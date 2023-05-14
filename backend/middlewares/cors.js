@@ -1,7 +1,10 @@
 const allowedCors = [
   'https://tengu.nomoredomains.monster/',
   'http://tengu.nomoredomains.monster/',
+  'https://api.tengu.nomoredomains.monster',
+  'http://api.tengu.nomoredomains.monster',
   'http://localhost:3000',
+  'localhost:3000',
 ];
 
 module.exports = (req, res, next) => {
