@@ -6,7 +6,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.50.243
+IP 158.160.50.243
 
 Frontend https://tengu.nomoredomains.monster/
 
