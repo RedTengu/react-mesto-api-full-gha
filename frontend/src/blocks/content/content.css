@@ -1,0 +1,15 @@
+.content {
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 960px) {
+  .content {
+    padding: 0 19px;
+  }
+}
+
+@media screen and (max-width: 398px) {
+  .content {
+    flex-grow: 0;
+  }
+}

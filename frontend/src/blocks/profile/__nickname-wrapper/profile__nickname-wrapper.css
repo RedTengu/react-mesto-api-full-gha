@@ -1,0 +1,10 @@
+.profile__nickname-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__nickname-wrapper {
+    justify-content: center;
+  }
+}

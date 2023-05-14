@@ -1,0 +1,11 @@
+.profile__info {
+  padding: 22px 25px 31px 30px;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__info {
+    padding: 0;
+    margin: 27px 0 33px;
+    text-align: center;
+  }
+}

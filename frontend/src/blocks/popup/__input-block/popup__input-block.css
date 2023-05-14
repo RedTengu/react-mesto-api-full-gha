@@ -1,0 +1,12 @@
+.popup__input-block {
+  box-sizing: border-box;
+  min-height: 65px;
+  margin: 0 0 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.popup__input-block:last-of-type {
+  margin: 0;
+}

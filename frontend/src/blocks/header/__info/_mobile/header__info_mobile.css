@@ -1,0 +1,12 @@
+.header__info_mobile {
+  padding: 40px 89px;
+  display: none;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media screen and (max-width: 720px) {
+  .header__info_mobile {
+    display: flex;
+  }
+}

@@ -1,0 +1,20 @@
+.form-for-auth__input {
+  min-height: 27px;
+  margin: 26px 0 0;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+}
+
+.form-for-auth__input:first-of-type {
+  margin: 0;
+}
+
+.form-for-auth__input::placeholder {
+  color: #ccc;
+}

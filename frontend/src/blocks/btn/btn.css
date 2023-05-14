@@ -1,0 +1,7 @@
+.btn {
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(1.03);
+}
