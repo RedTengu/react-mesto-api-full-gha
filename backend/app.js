@@ -8,6 +8,7 @@ const router = require('./routes');
 const { createUser, login } = require('./controllers/users');
 const { registerValidation, loginValidation } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 
 const NotFound = require('./errors/notFoundError');
@@ -22,6 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
+
+app.use(cors);
 
 app.post('/signin', celebrate(loginValidation), login);
 app.post('/signup', celebrate(registerValidation), createUser);
