@@ -17,7 +17,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmPopup from "./ConfirmPopup";
 
-import api from "../utils/api";
+import Api from "../utils/api";
 import authApi from "../utils/authApi";
 
 // Компонент приложения
@@ -54,6 +54,15 @@ function App() {
 
   // Хук навигации
   const navigate = useNavigate();
+
+  // Инициализация экземпляра Api
+  const api = new Api({
+    url: 'https://api.tengu.nomoredomains.monster',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
 
   // При монтировании проверяем токен, получаем данные карт и пользователя с сервера 
   useEffect(() => {

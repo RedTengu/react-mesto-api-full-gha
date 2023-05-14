@@ -51,7 +51,7 @@ class AuthApi {
 }
 
 const authApi = new AuthApi({
-  url: "https://auth.nomoreparties.co",
+  url: "https://api.tengu.nomoredomains.monster",
 });
 
 export default authApi;
