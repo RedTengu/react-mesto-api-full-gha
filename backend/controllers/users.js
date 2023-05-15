@@ -8,6 +8,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 
 const NotFound = require('../errors/notFoundError');
+const BadRequest = require('../errors/badRequestError');
 const Unauthorized = require('../errors/unauthorizedError');
 const Conflict = require('../errors/conflictError');
 
@@ -57,9 +58,14 @@ const createUser = (req, res, next) => {
         .catch((err) => {
           if (err.code === 11000) {
             next(new Conflict('Пользователь с таким email уже существует!'));
+          } else if (err.name === 'ValidationError') {
+            next(new BadRequest('Некорректные данные при создании пользователя.'));
+          } else {
+            next(err);
           }
         });
-    });
+    })
+    .catch(next);
 };
 
 const login = (req, res, next) => {
@@ -91,7 +97,13 @@ const editUser = (req, res, next) => {
 
   User.findByIdAndUpdate(ownerId, { name, about }, { new: true, runValidators: true })
     .then((user) => userCheck(user, res))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequest('Некорректные данные при редактировании пользователя.'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const editAvatar = (req, res, next) => {
@@ -100,7 +112,13 @@ const editAvatar = (req, res, next) => {
 
   User.findByIdAndUpdate(ownerId, avatar, { new: true, runValidators: true })
     .then((user) => userCheck(user, res))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequest('Некорректные данные при редактировании аватара.'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports = {

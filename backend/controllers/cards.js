@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 
 const NotFound = require('../errors/notFoundError');
+const BadRequest = require('../errors/badRequestError');
 
 const cardCheck = (card, res) => {
   if (card) {
@@ -25,7 +26,13 @@ const createCard = (req, res, next) => {
     .then((newCard) => {
       res.send(newCard);
     })
-    .catch(next);
+    .catch((err) => {
+      if(err.name === 'ValidationError') {
+        next(new BadRequest('Некорректные данные при создании карточки.'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const deleteCard = (req, res, next) => {
