@@ -8,10 +8,10 @@ function Card({ card, onCardClick, onCardLike, onConfirm }) {
   const currentUser = useContext(CurrentUserContext);
 
   // Проверка владения карточкой
-  const isOwn = card.owner._id === currentUser._id;
+  const isOwn = card.owner === currentUser._id;
 
   // Проверка лайка текущего пользователя
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const isLiked = card.likes.some(i => i === currentUser._id);
 
   // Делаем лайк активным исходя из проверки
   const cardLikeButtonClassName = ( 

@@ -64,20 +64,33 @@ function App() {
     },
   });
 
-  // При монтировании проверяем токен, получаем данные карт и пользователя с сервера 
+  // Проверка токена при монтировании
   useEffect(() => {
-    tokenCheck();
-    
-    setIsBurgerClick(false);
-
-    Promise.all([api.getProfileInfo(), api.getCardsData()])
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-
-        setCards(cards);
-    })
-      .catch(err => console.log(err));
+    const token = localStorage.getItem('token');
+    if (token) {
+      authApi.checkToken(token)
+        .then(res => {
+          if (res) {
+            setLoggedIn(true);
+            setHeaderEmail(res.email);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
+
+  // Получаем данные карт и пользователя с сервера, если залогинен
+  useEffect(() => {
+    loggedIn &&
+      Promise.all([api.getProfileInfo(), api.getCardsData()])
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+
+          setCards(cards.reverse());
+      })
+        .catch(err => console.log(err));
+  }, [loggedIn]);
 
   // Если модалка открыта повесить обработчики закрытия по оверлею и клавише
   useEffect(() => {
@@ -133,20 +146,6 @@ function App() {
     setIsBurgerClick(!isBurgerClick);
   }
 
-  // Функция проверки токена
-  const tokenCheck = () => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      authApi.checkToken(token)
-        .then(res => {
-          setHeaderEmail(res.data.email);
-          setLoggedIn(true);
-          navigate("/", { replace: true });
-        })
-        .catch(err => console.log(err));
-    }
-  }
-
   // Функция регистрации
   const handleRegister = (email, password) => {
     authApi.register(email, password)
@@ -170,14 +169,22 @@ function App() {
     authApi.authorization(email, password)
       .then(res => {
         if (res.token) {
+          setLoggedIn(true);
+
           setHeaderEmail(email);
 
-          setLoggedIn(true);
           localStorage.setItem('token', res.token);
           navigate("/", {replace: true});
         }
       })
       .catch(err => console.log(err));
+  }
+
+  // Функция выхода
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setHeaderEmail("");
+    localStorage.removeItem('token');
   }
 
   // Функция лайка и дизлайка карточки
@@ -262,9 +269,9 @@ function App() {
       <div className="container">
         <Header 
           headerEmail={headerEmail} 
-          setHeaderEmail={setHeaderEmail}
           isBurgerClick={isBurgerClick}
-          onBurgerClick={handleBurgerClick} />
+          onBurgerClick={handleBurgerClick}
+          onLogout={handleLogout} />
         <Routes>
           <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
           <Route path="/sign-up" element={<Register onRegister={handleRegister} />} /> 
