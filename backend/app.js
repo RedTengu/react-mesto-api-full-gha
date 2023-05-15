@@ -41,13 +41,13 @@ app.use(auth);
 
 app.use(router);
 
-app.use(errorLogger);
-
-app.use(errors());
-
 app.use(() => {
   throw (new NotFound('Маршрут не существует'));
 });
+
+app.use(errorLogger);
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
