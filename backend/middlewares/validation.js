@@ -4,7 +4,7 @@ const { urlReg: regex } = require('../utils/constants');
 
 const getUserByIdValidation = {
   params: Joi.object({
-    userId: Joi.string().length(24),
+    userId: Joi.string().length(24).hex().required(),
   }),
 };
 
@@ -47,13 +47,13 @@ const createCardValidation = {
 
 const deleteCardValidation = {
   params: Joi.object({
-    cardId: Joi.string().length(24),
+    cardId: Joi.string().length(24).hex().required(),
   }),
 };
 
 const likeCardValidation = {
   params: Joi.object({
-    cardId: Joi.string().length(24),
+    cardId: Joi.string().length(24).hex().required(),
   }),
 };
 
