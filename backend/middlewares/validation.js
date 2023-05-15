@@ -1,6 +1,6 @@
 const { Joi } = require('celebrate');
 
-const regex = /^(http|https):\/\/[^ "]+$/;
+const { urlReg: regex } = require('../utils/constants');
 
 const getUserByIdValidation = {
   params: Joi.object({
