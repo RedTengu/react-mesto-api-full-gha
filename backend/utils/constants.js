@@ -2,4 +2,4 @@ const urlReg = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-
 
 module.exports = {
   urlReg,
-}
+};
